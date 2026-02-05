@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <ctype.h>
+
+int main() {
+    char ch;
+    while ((ch = getchar()) != EOF) {
+
+        if (isspace(ch)) continue;   // ignore spaces, tabs, newlines
+
+        if (isalpha(ch)) {           // identifier
+            while (isalnum(ch = getchar()));
+            printf("Identifier\n");
+            ungetc(ch, stdin);
+        }
+        else if (isdigit(ch)) {      // constant
+            while (isdigit(ch = getchar()));
+            printf("Constant\n");
+            ungetc(ch, stdin);
+        }
+        else if (ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '=') {
+            printf("Operator\n");
+        }
+    }
+    return 0;
+}
