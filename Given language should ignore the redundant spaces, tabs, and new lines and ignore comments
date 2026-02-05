@@ -1,0 +1,22 @@
+#include <stdio.h>
+#include <ctype.h>
+
+int main() {
+    char c;
+    while ((c = getchar()) != EOF) {
+        if (isspace(c)) continue;
+
+        if (c == '/') {
+            char d = getchar();
+            if (d == '/') while (getchar() != '\n');   // single-line comment
+            else if (d == '*') {
+                while (!(getchar()=='*' && getchar()=='/'));
+            }
+            else ungetc(d, stdin);
+        }
+        else if (isalpha(c)) printf("Identifier\n");
+        else if (isdigit(c)) printf("Constant\n");
+        else printf("Operator\n");
+    }
+    return 0;
+}
